@@ -1,0 +1,29 @@
+body {
+
+    background-color: rgba(10, 1, 1, 0.196);
+
+}
+
+#barra {
+
+    margin:auto;
+    width: 600px;
+    list-style: none;
+    border-bottom: 1px dotted #999;
+    font-size: 2em;
+
+
+}
+
+#elem {
+    float:left;
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(1,20,29)
+}
