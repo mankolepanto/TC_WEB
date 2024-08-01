@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <ul id="barra">
+        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
+        <li><a href="{{ url_for('retrain') }}">Resultados</a></li>
+    </ul>
+    <section>
+        <h1>Bienvenido a la Página de Inicio</h1>
+        <p>Aquí encontrarás enlaces a diferentes secciones de nuestro proyecto:</p>
+        <ul>
+            <li><strong>Modelo:</strong> Explora la sección dedicada al modelo utilizado en el proyecto.</li>
+            <li><strong>Resultados:</strong> Revisa los resultados obtenidos y cómo se presentan.</li>
+        </ul>
+        <p>Cada enlace en la barra de navegación te llevará a una sección específica donde podrás obtener más detalles sobre cada aspecto del proyecto.</p>
+    </section>
+{% endblock %}

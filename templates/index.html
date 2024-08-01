@@ -4,17 +4,30 @@
 
 {% block content %}
     <header>
+        
     </header>
     <div class="banner">
         <div class="list">
-            <div class="item"><img src="{{ url_for('static', filename='imagenes/image.png') }}" alt=""></div>
-            <div class="item"><img src="{{ url_for('static', filename='imagenes/image_2.png') }}" alt=""></div>
-            <div class="item"><img src="{{ url_for('static', filename='imagenes/image_3.png') }}" alt=""></div>
+            <div class="item">
+                <a href="{{ url_for('data') }}">
+                    <img src="{{ url_for('static', filename='imagenes/image.png') }}" alt="Data">
+                    <div class="label">Data</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url_for('modelo') }}">
+                    <img src="{{ url_for('static', filename='imagenes/image_2.png') }}" alt="Modelo">
+                    <div class="label">Modelo/Resultados</div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url_for('retrain') }}">
+                    <img src="{{ url_for('static', filename='imagenes/image_3.png') }}" alt="Retrain">
+                    <div class="label">Retrain</div>
+                </a>
+            </div>
         </div>
     </div>
-    <h1>Bienvenido a nuestra página de inicio</h1>
-    <p>Este es el archivo desde la página creada.</p>
-    <a href="#">Enlace con imagen de fondo</a>
     <footer>
     </footer>
 {% endblock %}

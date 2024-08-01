@@ -10,17 +10,17 @@ app = Flask (__name__)
 def inicio (): # función o vista
     return render_template ('index.html')
 
+@app.route('/data')
+def data():
+    return render_template('data.html')
+
 @app.route('/modelo')
 def modelo():
     return render_template('modelo.html')
 
-@app.route('/hiperparametros')
-def hiperparametros():
-    return render_template('hiperparametros.html')
-
-@app.route('/resultados')
-def resultados():
-    return render_template('resultados.html')
+@app.route('/retrain')
+def retrain():
+    return render_template('retrain.html')
 
 if __name__ == "__main__":
     os.environ ['FLASK_ENV'] = 'development'

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <ul id="barra">
+        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
+        <li><a href="{{ url_for('retrain') }}">Resultados</a></li>
+    </ul>
+    <section>
+        <h1>Bienvenido a la Página de DATA</h1>
+        <p>Aquí encontrarás información sobre el dataset utilizado para nuestro proyecto de Machine Learning:</p>
+        <ul>
+            <li><strong>Features:</strong> Explicación de las features utilizadas en el modelo:.</li>
+            <li><strong>Feature_1:</strong> qweqweqweqweqweqweqweqweq.</li>
+            <li><strong>Feature_2:</strong> qweqweqweqweqweqweqweqweq.</li>
+            <li><strong>Feature_3:</strong> qweqweqweqweqweqweqweqweq.</li>
+            <li><strong>Feature_4:</strong> qweqweqweqweqweqweqweqweq.</li>
+
+        </ul>
+        <p>Nuestro target sera el siguiente: </p>
+    </section>
+{% endblock %}
