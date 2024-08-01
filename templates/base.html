@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Página Inicial{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <ul id="barra">
+        <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
+        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
+        <li><a href="{{ url_for('hiperparametros') }}">Hiperparametros</a></li>
+        <li><a href="{{ url_for('resultados') }}">Resultados</a></li>
+
+    </ul>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

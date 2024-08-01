@@ -1,29 +1,46 @@
 body {
-
-    background-color: rgba(10, 1, 1, 0.196);
-
+    background-color: rgb(14, 32, 43);
 }
 
 #barra {
-
-    margin:auto;
+    margin: auto;
     width: 600px;
     list-style: none;
     border-bottom: 1px dotted #999;
     font-size: 2em;
-
-
 }
 
 #elem {
-    float:left;
+    float: left;
     margin-right: 20px;
 }
 
 a {
     text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px;
 }
 
 a:visited {
-    color: rgb(1,20,29)
+    color: rgb(1, 20, 29);
+}
+
+.list {
+    display: flex; /* Utiliza Flexbox para alinear los elementos en fila */
+    justify-content: space-around; /* Espacia los elementos uniformemente */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+}
+
+.item {
+    flex: 1; /* Permite que los elementos se distribuyan uniformemente */
+    margin: 10px; /* Añade margen alrededor de cada elemento */
+}
+
+.list:hover .item {
+    filter: grayscale(1) blur(10px);
+}
+
+.list:hover .item:hover {
+    filter: none;
 }
