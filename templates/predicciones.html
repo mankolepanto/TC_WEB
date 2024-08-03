@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Predicciones{% endblock %}
+
+{% block content %}
+    <ul id="barra">
+        <li><a href="{{ url_for('data') }}">Data</a></li>
+        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
+        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
+    </ul>
+    <section>
+        <h1>Bienvenido a la Página de Predicciones</h1>
+        <!-- Formulario de predicciones -->
+        <form action="{{ url_for('predicciones') }}" method="post">
+            <label for="tv">TV:</label>
+            <input type="text" id="tv" name="tv" required>
+            <br>
+            <label for="radio">Radio:</label>
+            <input type="text" id="radio" name="radio" required>
+            <br>
+            <label for="newspaper">Newspaper:</label>
+            <input type="text" id="newspaper" name="newspaper" required>
+            <br>
+            <input type="submit" value="Predict">
+        </form>
+    </section>
+{% endblock %}

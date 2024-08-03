@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Predicciones{% endblock %}
 
 {% block content %}
     <ul id="barra">
         <li><a href="{{ url_for('data') }}">Data</a></li>
         <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
+        <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
     </ul>
     <section>
         <h1>Bienvenido a la Página de Retrain</h1>

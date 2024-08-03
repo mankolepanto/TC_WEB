@@ -5,19 +5,40 @@
 {% block content %}
     <ul id="barra">
         <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
+        <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
         <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
     </ul>
     <section>
         <h1>Bienvenido a la Página de DATA</h1>
         <p>Aquí encontrarás información sobre el dataset utilizado para nuestro proyecto de Machine Learning:</p>
         <ul>
-            <li><strong>Features:</strong> Explicación de las features utilizadas en el modelo:.</li>
+            <li><strong>Features:</strong> Explicación de las features utilizadas en el modelo:</li>
             <li><strong>Feature_1:</strong> qweqweqweqweqweqweqweqweq.</li>
             <li><strong>Feature_2:</strong> qweqweqweqweqweqweqweqweq.</li>
             <li><strong>Feature_3:</strong> qweqweqweqweqweqweqweqweq.</li>
-            <li><strong>Feature_4:</strong> qweqweqweqweqweqweqweqweq.</li>
-
         </ul>
-        <p>Nuestro target sera el siguiente: </p>
+        <p>Nuestro target será el siguiente:</p>
+
+        <!-- Añadimos la tabla con la muestra de datos -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>TV</th>
+                    <th>radio</th>
+                    <th>newspaper</th>
+                    <th>sales</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in sample_data %}
+                <tr>
+                    <td>{{ row['TV'] }}</td>
+                    <td>{{ row['radio'] }}</td>
+                    <td>{{ row['newspaper'] }}</td>
+                    <td>{{ row['sales'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </section>
 {% endblock %}
