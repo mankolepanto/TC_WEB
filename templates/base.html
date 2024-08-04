@@ -7,11 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <ul id="barra">
-        <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-
-
-    </ul>
+    <nav>
+        <a href="{{ url_for('inicio') }}" class="inicio-link">Inicio</a>
+    </nav>
     {% block content %}
     {% endblock %}
 </body>

@@ -1,163 +1,208 @@
-/* General body styles */
 body {
-    background-color: rgb(0, 0, 0);
+    background-color: #1a1a1a; /* Color de fondo más oscuro */
     margin: 0;
     padding: 0;
     color: white; /* Color del texto por defecto */
-    font-family: Arial, sans-serif; /* Fuente predeterminada */
+    font-family: 'Arial', sans-serif; /* Fuente predeterminada */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    border-bottom: 1px solid #444;
+}
+
+.inicio-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    padding: 8px 16px;
+    background-color: #555;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s; /* Reducción del tiempo de transición */
+    display: inline-block; /* Asegura que el padding se aplique correctamente */
+}
+
+.inicio-link:hover {
+    background-color: #777;
+    transform: translateY(-2px); /* Efecto sutil para evitar que el elemento se salga de la pantalla */
 }
 
 /* Barra de navegación */
 #barra {
-    margin: 0 auto; /* Asegura que la barra esté centrada horizontalmente */
-    width: 100%;
+    display: flex;
+    justify-content: center; /* Centra los elementos en el contenedor de la barra */
     list-style: none;
-    border-bottom: 1px dotted #791818;
-    font-size: 2em;
-    background-color: #8e1010; /* Fondo para la barra de navegación */
-    padding: 10px 0; /* Espaciado adicional para la barra de navegación */
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em; /* Tamaño de fuente de los enlaces */
 }
 
 #barra li {
-    float: left;
-    margin-right: 20px;
+    margin: 0 15px; /* Espacio horizontal entre los elementos de la barra */
 }
 
-a {
+#barra a {
     text-decoration: none;
     color: white;
-    display: block;
+    padding: 10px 20px;
+    background-color: #555;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves para el hover */
+}
+
+#barra a:hover {
+    background-color: #777;
+    transform: translateY(-2px); /* Efecto sutil para evitar que el elemento se salga de la pantalla */
+}
+
+/* Estilos específicos para la página de predicciones */
+section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+}
+
+section h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+form input[type="text"] {
     padding: 10px;
+    font-size: 1em;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
 }
 
-a:visited {
-    color: rgb(251, 251, 251);
+form input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 4px;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
+form input[type="submit"]:hover {
+    background-color: #777;
+    transform: translateY(-2px);
+}
+
+/* Banner de imágenes */
 .banner {
     width: 100%;
     display: flex;
-    flex-direction: column;  /* Cambia la dirección del contenedor a columnas */
-    align-items: center;     /* Centra los elementos horizontalmente */
+    flex-direction: column; /* Cambia la dirección del contenedor a columnas */
+    align-items: center;    /* Centra los elementos horizontalmente */
     padding: 20px;
     box-sizing: border-box;
+    background: #2b2b2b; /* Fondo del banner */
+    border-radius: 8px; /* Bordes redondeados */
 }
 
 .list {
     display: flex;
     justify-content: center; /* Centra los elementos dentro de la fila */
-    margin-bottom: 20px;     /* Espacio entre las filas */
+    margin-bottom: 20px;    /* Espacio entre las filas */
     width: 100%;
 }
 
 .item {
     position: relative;
     flex: 1;
-    margin: 0 5px;
-    text-align: center;      /* Centra el texto dentro de cada ítem */
-    transition: filter 0.3s ease; /* Transición suave para el efecto hover */
+    margin: 0 10px; /* Más espacio entre los items */
+    text-align: center; /* Centra el texto dentro de cada ítem */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Transición suave para el efecto hover */
 }
 
 .item img {
-    width: 100%;              /* Las imágenes ocuparán todo el ancho de cada item */
+    width: 100%;            /* Las imágenes ocuparán todo el ancho de cada item */
     height: auto;
+    max-height: 550px;     /* Altura máxima para las imágenes */
     display: block;
-    max-width: none;          /* Asegura que las imágenes no tengan un ancho máximo predefinido */
+    border-radius: 8px;   /* Bordes redondeados para las imágenes */
 }
 
 .label {
     position: absolute;
-    top: 10px;                  /* Posiciona el texto en el centro verticalmente */
-    left: 50%;                 /* Posiciona el texto en el centro horizontalmente */
+    bottom: 10px; /* Posiciona el texto en la parte inferior */
+    left: 50%; /* Posiciona el texto en el centro horizontalmente */
     transform: translateX(-50%); /* Centra el texto exactamente */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el texto */
-    color: white;              /* Color del texto */
-    padding: 5px;              /* Espaciado alrededor del texto */
-    border-radius: 5px;        /* Bordes redondeados para el texto */
-    pointer-events: none;      /* Permite hacer clic en la imagen a pesar del texto */
-    width: auto;                /* Ancho del fondo del texto para mejor visibilidad */
-    box-sizing: border-box;    /* Incluye padding en el ancho total */
-}
-
-/* Estilos para la sección de contenido principal */
-section {
-    padding: 20px;
-    background-color: #ecb4b41e; /* Fondo claro para que el texto sea legible */
-    color: rgb(255, 255, 255); /* Color del texto en la sección */
-    border-radius: 8px;
-    margin: 40px auto; /* Añadido margen superior para separar el contenido del encabezado */
-    max-width: 800px; /* Máximo ancho para el contenido */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente para el texto */
+    color: white; /* Color del texto */
+    padding: 5px 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados para el texto */
+    pointer-events: none; /* Permite hacer clic en la imagen a pesar del texto */
+    width: auto; /* Ancho del fondo del texto para mejor visibilidad */
     box-sizing: border-box; /* Incluye padding en el ancho total */
-}
-
-/* Estilos para encabezados */
-h1 {
-    font-size: 2em;
-    color: #f7f4f4e3; /* Color del encabezado más oscuro para contraste */
-}
-
-/* Estilos para párrafos */
-p {
-    font-size: 1em;
-    line-height: 1.6;
-}
-
-/* Estilos para listas */
-ul {
-    list-style-type: none; /* Quita los puntos de la lista */
-    padding: 0; /* Quita el padding predeterminado */
-    margin: 0; /* Quita el margen predeterminado */
-}
-
-ul li {
-    margin-bottom: 10px; /* Espacio entre los elementos de la lista */
-    padding-left: 20px; /* Indenta los elementos de la lista */
-    position: relative; /* Necesario para el posicionamiento del símbolo */
-}
-
-ul li:first-child {
-    padding-left: 0; /* Sin indentación para el primer elemento */
-}
-
-ul li::before {
-    color: #007bff; /* Color de la viñeta */
-    position: absolute;
-    left: 0;
-    font-size: 1.2em;
-    line-height: 1.2em;
-}
-
-/* Estilos para enlaces */
-a {
-    color: white;
-    text-decoration: none;
-}
-
-a:visited {
-    color: rgb(251, 251, 251);
+    font-size: 1em; /* Tamaño de fuente más legible */
 }
 
 /* Efectos de hover para las imágenes */
-.list .item {
-    position: relative;
-    transition: filter 0.3s ease; /* Transición suave para el efecto hover */
-}
-
-.list:hover .item {
-    filter: grayscale(1) blur(10px); /* Aplica el efecto hover a todos los items dentro de .list */
-}
-
-.list:hover .item:hover {
+.list .item:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del item */
     filter: none; /* Desactiva el efecto hover cuando se pasa el cursor sobre un item */
 }
+.content-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
+.data-table th, .data-table td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #555;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #2b2b2b;
+}
+
+.data-table tr:hover {
+    background-color: #333;
+}
 /* Centrar específicamente la fila con la cuarta imagen */
 .list.center {
     justify-content: center;   /* Centra los elementos en la fila específica */
     width: 100%;               /* Asegura que la fila ocupe todo el ancho disponible */
 }
 
-.list.center:hover .item {
-    filter: grayscale(0.1) blur(5px); /* Aplicar efecto hover específico para la cuarta imagen */
+.list.center .item:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del item */
+    filter: none; /* Desactiva el efecto hover cuando se pasa el cursor sobre un item */
+}
+
+/* Pie de página */
+footer {
+    padding: 20px;
+    text-align: center;
+    background: #2b2b2b; /* Fondo del pie de página */
+    color: white; /* Color del texto del pie de página */
+    border-top: 1px solid #444; /* Borde superior del pie de página */
+    margin-top: 20px;
 }

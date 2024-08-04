@@ -12,7 +12,7 @@ import subprocess
 app = Flask (__name__)
 
 
-path_base = 'C:\\cosas\\Proyecto_TC_WEB\\TC_WEB\\'
+path_base = 'C:\\Users\\unais\\Desktop\\Proyecto_TC_WEB\\TC_WEB\\'
 
 
 @app.route ('/')
