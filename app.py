@@ -12,7 +12,7 @@ import subprocess
 app = Flask (__name__)
 
 
-path_base = 'C:\\Users\\unais\\Desktop\\Proyecto_TC_WEB\\TC_WEB\\'
+path_base = 'C:\\Users\\annav\\THEBRIDGE\\TC_WEB\\'
 
 
 @app.route ('/')
@@ -22,8 +22,8 @@ def inicio (): # función o vista
 
 @app.route('/data')
 def data ():
-    df = pd.read_csv('data/Advertising.csv')
-    sample_data = df[['TV', 'radio', 'newspaper', 'sales']].head(10) 
+    df = pd.read_csv('data/wines_dataset.csv', sep = "|")
+    sample_data = df[['class', 'volatile acidity', 'citric acid', 'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'quality']].head(10) 
     sample_data_dict = sample_data.to_dict(orient='records')   
     return render_template('data.html', sample_data=sample_data_dict)
 
@@ -31,29 +31,66 @@ def data ():
 def modelo():
     return render_template('modelo.html')
 
-@app.route('/predicciones', methods = ['GET', 'POST'])
+@app.route('/predicciones', methods=['GET', 'POST'])
 def predicciones():
     if request.method == 'GET':
         # Renderiza la plantilla si la solicitud es GET
         return render_template('predicciones.html')
 
     if request.method == 'POST':
-        # Maneja la solicitud POST para predicción
-        model = pickle.load(open(path_base + 'ad_model.pkl', 'rb'))
+        try:
+            # Maneja la solicitud POST para predicción
+            model = pickle.load(open(path_base + 'ad_model.pkl', 'rb'))
 
-        tv = request.form.get('tv', None)
-        radio = request.form.get('radio', None)
-        newspaper = request.form.get('newspaper', None)
+            # Obtiene los valores del formulario
+            wine_class = request.form.get('class', None)
+            volatile_acidity = request.form.get('volatile_acidity', None)
+            citric_acid = request.form.get('citric_acid', None)
+            chlorides = request.form.get('chlorides', None)
+            free_sulfur_dioxide = request.form.get('free_sulfur_dioxide', None)
+            total_sulfur_dioxide = request.form.get('total_sulfur_dioxide', None)
+            density = request.form.get('density', None)
+            ph = request.form.get('ph', None)
+            sulphates = request.form.get('sulphates', None)
+            alcohol = request.form.get('alcohol', None)
 
-        if tv is None or radio is None or newspaper is None:
-            return jsonify({"error": "Args empty, the data are not enough to predict, STUPID!!!!"}), 400
-        else:
-            try:
-                prediction = model.predict([[float(tv), float(radio), float(newspaper)]])
-                return jsonify({'predictions': prediction[0]})
-            except ValueError as e:
-                return jsonify({"error": str(e)}), 400
+            # Verifica si alguno de los campos está vacío
+            if any(value is None for value in [wine_class, volatile_acidity, citric_acid, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, ph, sulphates, alcohol]):
+                return jsonify({"error": "Args empty, the data are not enough to predict"}), 400
+
+            # Convierte los valores a float y usa los nombres de características correctos
+            features = {
+                'class': wine_class,
+                'volatile acidity': float(volatile_acidity),
+                'citric acid': float(citric_acid),
+                'chlorides': float(chlorides),
+                'free sulfur dioxide': float(free_sulfur_dioxide),
+                'total sulfur dioxide': float(total_sulfur_dioxide),
+                'density': float(density),
+                'pH': float(ph),
+                'sulphates': float(sulphates),
+                'alcohol': float(alcohol)
+            }
             
+            # Convierte 'white' y 'red' a valores numéricos y añade al DataFrame
+            if wine_class.lower() == 'white':
+                features['class'] = 1
+            elif wine_class.lower() == 'red':
+                features['class'] = 0
+            else:
+                return jsonify({"error": "Invalid value for class"}), 400
+            
+            # Crea un DataFrame con los nombres de las características
+            input_data = pd.DataFrame([features])
+
+            # Realiza la predicción
+            prediction = model.predict(input_data)
+            prediction = int(prediction[0])
+            return jsonify({'predictions': prediction})
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+                           
 
 @app.route('/retrain')
 def retrain():

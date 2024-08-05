@@ -1,37 +1,57 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
-from sklearn.linear_model import Lasso
+
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import classification_report, ConfusionMatrixDisplay
+from sklearn.linear_model import LogisticRegression
+
 import pickle
 import os
 
 #os.chdir(os.path.dirname(__file__))
 
-data = pd.read_csv('data/Advertising.csv', index_col=0)
+data = pd.read_csv("./data/wines_dataset.csv", sep = "|")
 
-X_train, X_test, y_train, y_test = train_test_split(data.drop(columns=['sales']),
-                                                    data['sales'],
+#Particion en train-test:
+X_train, X_test, y_train, y_test = train_test_split(data.drop(columns=['quality']),
+                                                    data['quality'],
                                                     test_size = 0.20,
                                                     random_state=42)
 
-model = Lasso(alpha=6000)
-model.fit(X_train, y_train)
+#Tratamiento features:
+X_train["class"] = (X_train["class"] == "white").astype(int) # white -> clase 1, red -> clase 0
+X_test["class"] = (X_test["class"] == "white").astype(int) # white -> clase 1, red -> clase 0
 
-cross_val_train_MSE = cross_val_score(model,X_train,y_train, cv = 4, scoring= "neg_mean_squared_error")
-cross_val_train_MAPE = cross_val_score(model,X_train,y_train, cv = 4, scoring= "neg_mean_absolute_percentage_error")
-mse_cross_val = -np.mean(cross_val_train_MSE)
-rmse_cross_val = np.mean([np.sqrt(-mse_fold) for mse_fold in cross_val_train_MSE])
-mape_cross_val = -np.mean(cross_val_train_MAPE)
-print("Train Mean Sales", y_train.mean())
-print("MSE Cross: ", mse_cross_val)
-print("RMSE Cross: ", rmse_cross_val)
-print("MAPE Cross: ", mape_cross_val)
-print("**********")
-print("MSE Test: ", mean_squared_error(y_test, model.predict(X_test)))
-print("RMSE Test: ", np.sqrt(mean_squared_error(y_test, model.predict(X_test))))
-print("MAPE Test: ", mean_absolute_percentage_error(y_test, model.predict(X_test)) )
+features_to_transform = ["chlorides","free sulfur dioxide", "total sulfur dioxide"]
+for col in features_to_transform:
+    desplaza = 0 
+    if X_train[col].min() <= 0:
+        desplaza = int(abs(X_train[col].min())) + 1
+    X_train[col] = np.log(X_train[col] + desplaza)
+    X_test[col] = np.log(X_test[col] + desplaza)
 
+features_clf = ['class', 'volatile acidity', 'citric acid', 'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']
 
-model.fit(data.drop(columns = ["sales"]), data["sales"])
-pickle.dump(model, open('ad_model.pkl', 'wb'))
+#Modelo de Regresión Logistica:
+lr_clf = LogisticRegression(max_iter = 1000, class_weight = "balanced")
+
+param_grid = {
+    'max_iter':[1000,10000],
+    'class_weight':['balanced',False],
+    
+}
+
+lr_grid = GridSearchCV(lr_clf,
+                        param_grid= param_grid,
+                        cv = 5,
+                        scoring = "balanced_accuracy")
+
+lr_grid.fit(X_train[features_clf], y_train)
+
+y_pred = lr_grid.best_estimator_.predict(X_test[features_clf])
+class_report = classification_report(y_test, y_pred)
+conf_matrix = ConfusionMatrixDisplay.from_predictions(y_test, y_pred, normalize = "true")
+
+#Guardamos el modelo:
+with open('ad_model.pkl', 'wb') as file:
+    pickle.dump(lr_grid.best_estimator_, file)
