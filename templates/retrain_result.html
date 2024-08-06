@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <ul id="barra">
+        <li><a href="{{ url_for('data') }}">Data</a></li>
+        <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
+        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
+    </ul>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultado del Retrain</title>
+    </head>
+    <body>
+        <h1>Resultado del Retrain del Modelo</h1>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% else %}
+            <h2>Classification Report:</h2>
+            <pre>{{ class_report }}</pre>
+            <h2>Matriz de Confusión:</h2>
+            <img src="data:image/png;base64,{{ img_data }}" alt="Matriz de Confusión">
+        {% endif %}
+        <a href="/retrain">Volver a Retrain</a>
+    </body>
+{% endblock %}

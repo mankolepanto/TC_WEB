@@ -1,20 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %}Predicciones{% endblock %}
+{% block title %}Inicio{% endblock %}
 
 {% block content %}
     <ul id="barra">
         <li><a href="{{ url_for('data') }}">Data</a></li>
-        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
         <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
+        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
     </ul>
-    <section>
-        <h1>Bienvenido a la Página de Retrain</h1>
-        <p>Aquí encontrarás enlaces a diferentes secciones de nuestro proyecto:</p>
-        <ul>
-            <li><strong>Modelo:</strong> Explora la sección dedicada al modelo utilizado en el proyecto.</li>
-            <li><strong>Resultados:</strong> Revisa los resultados obtenidos y cómo se presentan.</li>
-        </ul>
-        <p>Cada enlace en la barra de navegación te llevará a una sección específica donde podrás obtener más detalles sobre cada aspecto del proyecto.</p>
-    </section>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Retrain Modelo de Predicción</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin-top: 50px;
+            }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Retrain Modelo de Predicción</h1>
+        <form action="/retrain" method="post">
+            <button type="submit">Retrain Modelo</button>
+        </form>
+    </body>
 {% endblock %}

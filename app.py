@@ -2,11 +2,14 @@ from flask import Flask, render_template, url_for, request, redirect, jsonify
 import os
 import pandas as pd
 import pickle
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import Lasso
-from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, ConfusionMatrixDisplay
 import numpy as np
 import subprocess
+import matplotlib.pyplot as plt
+import io
+import base64
 
 
 app = Flask (__name__)
@@ -92,10 +95,57 @@ def predicciones():
             return jsonify({"error": str(e)}), 500
                            
 
-@app.route('/retrain')
+@app.route('/retrain', methods=['GET', 'POST'])
 def retrain():
-    return render_template('retrain.html')
+    if request.method == 'GET':
+        return render_template('retrain.html')
 
+    if request.method == 'POST':
+        if os.path.exists("./data/wines_dataset.csv"):
+            data = pd.read_csv("./data/wines_dataset.csv", sep = "|")
+            X_train, X_test, y_train, y_test = train_test_split(data.drop(columns=['quality']),
+                                                                data['quality'],
+                                                                test_size=0.20,
+                                                                random_state=42)
+            X_train["class"] = (X_train["class"] == "white").astype(int)
+            X_test["class"] = (X_test["class"] == "white").astype(int)
+            features_to_transform = ["chlorides", "free sulfur dioxide", "total sulfur dioxide"]
+            for col in features_to_transform:
+                desplaza = 0
+                if X_train[col].min() <= 0:
+                    desplaza = int(abs(X_train[col].min())) + 1
+                X_train[col] = np.log(X_train[col] + desplaza)
+                X_test[col] = np.log(X_test[col] + desplaza)
+            features_clf = ['class', 'volatile acidity', 'citric acid', 'chlorides', 'free sulfur dioxide', 
+                            'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']
+            lr_clf = LogisticRegression(max_iter=1000, class_weight="balanced")
+            param_grid = {
+                'max_iter': [1000, 10000],
+                'class_weight': ['balanced', False],
+            }
+            lr_grid = GridSearchCV(lr_clf,
+                                   param_grid=param_grid,
+                                   cv=5,
+                                   scoring="balanced_accuracy")
+            lr_grid.fit(X_train[features_clf], y_train)
+            y_pred = lr_grid.best_estimator_.predict(X_test[features_clf])
+            class_report = classification_report(y_test, y_pred, output_dict=True)
+
+            # Generar matriz de confusión y guardarla como imagen
+            fig, ax = plt.subplots()
+            ConfusionMatrixDisplay.from_predictions(y_test, y_pred, normalize="true", ax=ax)
+            buf = io.BytesIO()
+            plt.savefig(buf, format='png')
+            buf.seek(0)
+            img_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+            plt.close(fig)
+
+            with open('ad_model.pkl', 'wb') as file:
+                pickle.dump(lr_grid.best_estimator_, file)
+
+            return render_template('retrain_result.html', class_report=class_report, img_data=img_base64)
+        else:
+            return render_template('retrain_result.html', error="New data for retrain NOT FOUND. Nothing done!")
 
 if __name__ == "__main__":
     os.environ ['FLASK_ENV'] = 'development'
