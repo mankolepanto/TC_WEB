@@ -3,11 +3,6 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <ul id="barra">
-        <li><a href="{{ url_for('data') }}">Data</a></li>
-        <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
-        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
-    </ul>
     <section>
         <h1>Bienvenido a la Página del Modelo y de los resultados</h1>
         <p>Aqui encontrarás la información del modelo de machine learning seleccionado y los resultados del mismo:</p>
@@ -17,4 +12,19 @@
         </ul>
         <p>Cada enlace en la barra de navegación te llevará a una sección específica donde podrás obtener más detalles sobre cada aspecto del proyecto.</p>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var menuButton = document.querySelector('.menu-button');
+    var menu = document.querySelector('.menu');
+    var closeButton = document.querySelector('.close-button');
+
+    menuButton.addEventListener('click', function() {
+        menu.classList.toggle('active');
+    });
+
+    closeButton.addEventListener('click', function() {
+        menu.classList.remove('active');
+    });
+});
+    </script>
 {% endblock %}

@@ -6,31 +6,91 @@ body {
     font-family: 'Arial', sans-serif; /* Fuente predeterminada */
 }
 
-.navbar {
+/* Estilo del encabezado */
+header {
+    width: 100%;
+    background-color: white;
+    padding: 10px 20px; /* Espacio interno del encabezado */
+    position: relative; /* Posición relativa para el botón del menú */
+    z-index: 900;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    border-bottom: 1px solid #444;
+    justify-content: space-between; /* Alinea el logo y el botón de menú */
 }
 
-.inicio-link {
-    text-decoration: none;
+/* Estilo de la línea del encabezado */
+.header-line {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    width: 100%;
+}
+
+/* Estilo del logo */
+.logo {
+    height: 50px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+/* Estilo del botón de menú hamburguesa */
+.menu-button {
+    border: none;
+    color: black;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1000; /* Asegura que el botón esté encima del contenido */
+}
+
+/* Estilo del menú desplegable */
+.menu {
+    display: none; /* Oculta el menú por defecto */
+    position: fixed; /* Fija el menú en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Fondo oscuro semitransparente */
     color: white;
-    font-size: 1.2em;
-    padding: 8px 16px;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box; /* Incluye padding en el tamaño total del menú */
+}
+
+/* Mostrar el menú cuando tenga la clase 'active' */
+.menu.active {
+    display: block;
+}
+
+/* Estilo de los enlaces dentro del menú */
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    font-size: 1.5em;
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover para los enlaces del menú */
+.menu a:hover {
     background-color: #555;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.2s; /* Reducción del tiempo de transición */
-    display: inline-block; /* Asegura que el padding se aplique correctamente */
 }
 
-.inicio-link:hover {
-    background-color: #777;
-    transform: translateY(-2px); /* Efecto sutil para evitar que el elemento se salga de la pantalla */
+/* Estilo para el botón de cerrar menú */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 48px; /* Tamaño de la fuente aumentado para la X */
+    cursor: pointer;
+    color: white; /* Color de la X */
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    padding: 5px; /* Espaciado alrededor de la X */
 }
 
-/* Barra de navegación */
+/* Estilo de la barra de navegación */
 #barra {
     display: flex;
     justify-content: center; /* Centra los elementos en el contenedor de la barra */
@@ -111,19 +171,23 @@ form input[type="submit"]:hover {
 /* Banner de imágenes */
 .banner {
     width: 100%;
-    display: flex;
-    flex-direction: column; /* Cambia la dirección del contenedor a columnas */
-    align-items: center;    /* Centra los elementos horizontalmente */
-    padding: 20px;
-    box-sizing: border-box;
-    background: #2b2b2b; /* Fondo del banner */
-    border-radius: 8px; /* Bordes redondeados */
+    height: 300px;
+    background-image: url('/static/imagenes/banner2.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
+/* Estilo para el contenido */
+.content {
+    background-color: white; /* Fondo blanco para el contenido */
+    padding: 20px;
+}
+
+/* Estilo de la lista de elementos */
 .list {
     display: flex;
     justify-content: center; /* Centra los elementos dentro de la fila */
-    margin-bottom: 20px;    /* Espacio entre las filas */
+    margin-bottom: 20px; /* Espacio entre las filas */
     width: 100%;
 }
 
@@ -136,11 +200,11 @@ form input[type="submit"]:hover {
 }
 
 .item img {
-    width: 100%;            /* Las imágenes ocuparán todo el ancho de cada item */
+    width: 100%; /* Las imágenes ocuparán todo el ancho de cada item */
     height: auto;
-    max-height: 550px;     /* Altura máxima para las imágenes */
+    max-height: 550px; /* Altura máxima para las imágenes */
     display: block;
-    border-radius: 8px;   /* Bordes redondeados para las imágenes */
+    border-radius: 8px; /* Bordes redondeados para las imágenes */
 }
 
 .label {
@@ -163,6 +227,7 @@ form input[type="submit"]:hover {
     transform: scale(1.05); /* Aumenta ligeramente el tamaño del item */
     filter: none; /* Desactiva el efecto hover cuando se pasa el cursor sobre un item */
 }
+
 .content-section table {
     width: 100%;
     border-collapse: collapse;
@@ -186,10 +251,11 @@ form input[type="submit"]:hover {
 .data-table tr:hover {
     background-color: #333;
 }
+
 /* Centrar específicamente la fila con la cuarta imagen */
 .list.center {
-    justify-content: center;   /* Centra los elementos en la fila específica */
-    width: 100%;               /* Asegura que la fila ocupe todo el ancho disponible */
+    justify-content: center; /* Centra los elementos en la fila específica */
+    width: 100%; /* Asegura que la fila ocupe todo el ancho disponible */
 }
 
 .list.center .item:hover {
@@ -205,4 +271,32 @@ footer {
     color: white; /* Color del texto del pie de página */
     border-top: 1px solid #444; /* Borde superior del pie de página */
     margin-top: 20px;
+}
+.overlay-box {
+    background-color: white; /* Fondo blanco del recuadro */
+    padding: 20px; /* Espacio interior alrededor del texto */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para darle un efecto flotante */
+    max-width: 800px; /* Ancho máximo del recuadro */
+    margin: 20px auto; /* Margen automático para centrar el recuadro horizontalmente */
+    text-align: left; /* Alinea el texto a la izquierda para una lectura más natural */
+    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
+}
+
+.overlay-box h2 {
+    font-size: 2em; /* Tamaño del título */
+    color: black; /* Color del título */
+    margin-bottom: 15px; /* Espacio debajo del título */
+    font-family: inherit; /* Usa la fuente heredada del contenedor o la predeterminada del sitio */
+}
+
+.overlay-box p {
+    font-size: 1em; /* Tamaño del texto */
+    color: #a9a29a; /* Color del texto */
+    margin-bottom: 15px; /* Espacio entre párrafos */
+}
+
+/* Asegúrate de agregar un margen inferior a los párrafos para la separación entre ellos */
+.overlay-box p:last-of-type {
+    margin-bottom: 0; /* Elimina el margen inferior en el último párrafo */
 }

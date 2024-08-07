@@ -3,11 +3,6 @@
 {% block title %}Predicciones{% endblock %}
 
 {% block content %}
-    <ul id="barra">
-        <li><a href="{{ url_for('data') }}">Data</a></li>
-        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
-        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
-    </ul>
     <section>
         <h1>Bienvenido a la Página de Predicciones</h1>
         <script>
@@ -25,7 +20,6 @@
         </script>
     </head>
     <body>
-        <h1>Bienvenido a la Página de Predicciones</h1>
         <!-- Formulario de predicciones -->
         <form action="{{ url_for('predicciones') }}" method="post" onsubmit="return validateForm()">
             <label for="class">Class:</label>
@@ -63,5 +57,20 @@
             <br>
             <input type="submit" value="Predict">
         </form>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+        var menuButton = document.querySelector('.menu-button');
+        var menu = document.querySelector('.menu');
+        var closeButton = document.querySelector('.close-button');
+    
+        menuButton.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    
+        closeButton.addEventListener('click', function() {
+            menu.classList.remove('active');
+        });
+    });
+        </script>
     </section>
 {% endblock %}

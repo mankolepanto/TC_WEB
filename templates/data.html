@@ -3,11 +3,6 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-    <ul id="barra">
-        <li><a href="{{ url_for('modelo') }}">Modelo</a></li>
-        <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
-        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
-    </ul>
     <section class="content-section">
         <h1>Bienvenido a la Página de DATA</h1>
         <p>Aquí encontrarás información sobre el dataset utilizado para nuestro proyecto de Machine Learning:</p>
@@ -62,4 +57,19 @@
             </tbody>
         </table>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var menuButton = document.querySelector('.menu-button');
+    var menu = document.querySelector('.menu');
+    var closeButton = document.querySelector('.close-button');
+
+    menuButton.addEventListener('click', function() {
+        menu.classList.toggle('active');
+    });
+
+    closeButton.addEventListener('click', function() {
+        menu.classList.remove('active');
+    });
+});
+    </script>
 {% endblock %}

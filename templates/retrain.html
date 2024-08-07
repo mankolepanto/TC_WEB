@@ -1,23 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio{% endblock %}
+{% block title %}Retrain{% endblock %}
 
 {% block content %}
-    <ul id="barra">
-        <li><a href="{{ url_for('data') }}">Data</a></li>
-        <li><a href="{{ url_for('predicciones') }}">Predicciones</a></li>
-        <li><a href="{{ url_for('retrain') }}">Retrain</a></li>
-    </ul>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Retrain Modelo de Predicción</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                margin-top: 50px;
-            }
             button {
                 background-color: #4CAF50;
                 color: white;
@@ -37,5 +27,20 @@
         <form action="/retrain" method="post">
             <button type="submit">Retrain Modelo</button>
         </form>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+        var menuButton = document.querySelector('.menu-button');
+        var menu = document.querySelector('.menu');
+        var closeButton = document.querySelector('.close-button');
+    
+        menuButton.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    
+        closeButton.addEventListener('click', function() {
+            menu.classList.remove('active');
+        });
+    });
+        </script>
     </body>
 {% endblock %}
