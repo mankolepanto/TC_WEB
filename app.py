@@ -15,7 +15,7 @@ import base64
 app = Flask (__name__)
 
 
-path_base = 'C:\\Users\\annav\\THEBRIDGE\\TC_WEB\\'
+path_base = '\\home\\AnnaValsells\\vinos\\TC_WEB\\'
 
 
 @app.route ('/')
